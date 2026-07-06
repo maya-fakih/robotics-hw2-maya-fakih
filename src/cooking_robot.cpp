@@ -5,7 +5,7 @@ CookingRobot::CookingRobot(const std::string& id, const std::string& name, int b
     : Robot(id, name, battery) {}
 
 void CookingRobot::work() {
-    if (battery_ == 0)
+    if (battery_ < 15)
         throw std::runtime_error(name_ + " cannot work: battery is empty");
     battery_ -= 15;
     if (battery_ < 0) battery_ = 0;

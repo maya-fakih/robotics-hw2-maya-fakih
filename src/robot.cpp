@@ -1,10 +1,17 @@
 #include "robot.hpp"
 #include "task.hpp"
+#include <iostream>
 
 Robot::Robot(const std::string& id, const std::string& name, int battery)
     : id_(id), name_(name), battery_(battery), status_("idle") {
-    if (battery_ < 0)   battery_ = 0;
-    if (battery_ > 100) battery_ = 100;
+    if (battery_ < 0) {
+        std::cout << "Warning: battery " << battery_ << " is below 0, clamped to 0.\n";
+        battery_ = 0;
+    }
+    if (battery_ > 100) {
+        std::cout << "Warning: battery " << battery_ << " is above 100, clamped to 100.\n";
+        battery_ = 100;
+    }
 }
 
 void Robot::charge() {

@@ -2,7 +2,10 @@
 #include <iostream>
 #include <stdexcept>
 
+// fixed robot fleet to not allow duplicated robot ids as it makes no sense
 void Fleet::add(std::shared_ptr<Robot> robot) {
+    if (robots_.count(robot->id()) > 0)
+        throw std::runtime_error("robot id already exists: "+robot->id() );
     robots_[robot->id()] = robot;
 }
 

@@ -1,23 +1,14 @@
 #pragma once
 #include "robot.hpp"
-#include <thread>
-#include <atomic>
 
 class CookingRobot : public Robot {
 public:
-    CookingRobot(const std::string& id, const std::string& name,
-                int battery, double speed);
+    CookingRobot(const std::string& id, const std::string& name, int battery);
 
-    void        work()  override;  // moves, uses 20% battery
-    std::string type()  const override;
+    void        work() override;   // cooks, uses battery
+    std::string type() const override;
 
-    // Launches a background thread that calls work() once per second
-    // for the given duration, printing status after each call.
-    // stop_ and worker_ are yours to use -- figure out how.
-    void start_work(int seconds);
-
-protected:
-    double            speed_;
-    std::thread       worker_;
-    std::atomic<bool> stop_{ false };
+    //similar to cleaning robot but inherits robot
+    //it does not spawn background work tasks using start_work
+    //the rest of the attributes are inherited normally from robot.hpp
 };

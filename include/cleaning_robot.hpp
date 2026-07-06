@@ -1,23 +1,18 @@
 #pragma once
 #include "robot.hpp"
+#include "mobile_robot.hpp"
 #include <thread>
 #include <atomic>
 
-class CleaningRobot : public Robot {
+class CleaningRobot : public MobileRobot {
 public:
     CleaningRobot(const std::string& id, const std::string& name,
                 int battery, double speed);
 
-    void        work()  override;  // moves, uses 20% battery
+    void        work()  override;  // moves, uses 30% battery
     std::string type()  const override;
 
-    // Launches a background thread that calls work() once per second
-    // for the given duration, printing status after each call.
-    // stop_ and worker_ are yours to use -- figure out how.
-    void start_work(int seconds);
+    // mobile robot already has all the variables worker stop...
+    // start work is the same for all robots what differs is the work functino it is calling
 
-protected:
-    double            speed_;
-    std::thread       worker_;
-    std::atomic<bool> stop_{ false };
 };

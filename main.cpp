@@ -6,7 +6,20 @@
 #include "cleaning_robot.hpp"
 #include "cooking_robot.hpp"
 
-void print_menu() {
+void clear_screen()
+{
+    std::system("clear");
+}
+
+void wait_for_enter()
+{
+    std::cout << "\nPress Enter to continue...";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get();
+}
+
+void print_menu()
+{
     std::cout << "\n=== Robot Fleet Manager ===\n"
               << "1. Add robot\n2. Remove robot\n3. Show all robots\n"
               << "4. Work (single robot)\n5. Work all\n6. Charge all\n"
@@ -14,7 +27,8 @@ void print_menu() {
               << "9. Start timed work on a robot\n0. Exit\nChoice: ";
 }
 
-int read_int() {
+int read_int()
+{
     int x;
     while (!(std::cin >> x)) {
         std::cin.clear();
@@ -24,7 +38,8 @@ int read_int() {
     return x;
 }
 
-void handle_add(Fleet& fleet) {
+void handle_add(Fleet& fleet)
+{
     std::cout << "Robot type - 1: Mobile, 2: Cleaning, 3: Cooking\n> ";
     int t = read_int();
 
@@ -53,13 +68,15 @@ void handle_add(Fleet& fleet) {
     }
 }
 
-void handle_remove(Fleet& fleet) {
+void handle_remove(Fleet& fleet)
+{
     std::cout << "id to remove: ";
     std::string id; std::cin >> id;
     fleet.remove(id);
 }
 
-void handle_work_one(Fleet& fleet) {
+void handle_work_one(Fleet& fleet)
+{
     std::cout << "id to work: ";
     std::string id; std::cin >> id;
     try {
@@ -71,12 +88,14 @@ void handle_work_one(Fleet& fleet) {
     }
 }
 
-void handle_work_all(Fleet& fleet) {
+void handle_work_all(Fleet& fleet)
+{
     try { fleet.work_all(); }
     catch (const std::exception& e) { std::cout << "Error: " << e.what() << "\n"; }
 }
 
-void handle_assign_task(Fleet& fleet) {
+void handle_assign_task(Fleet& fleet)
+{
     std::cout << "robot id, task name, priority: ";
     std::string id, tname; int pri;
     std::cin >> id >> tname >> pri;
@@ -87,7 +106,8 @@ void handle_assign_task(Fleet& fleet) {
     }
 }
 
-void handle_timed_work(Fleet& fleet) {
+void handle_timed_work(Fleet& fleet)
+{
     std::cout << "id, seconds: ";
     std::string id; int secs;
     std::cin >> id >> secs;
@@ -103,7 +123,8 @@ void handle_timed_work(Fleet& fleet) {
     }
 }
 
-void run_choice(int choice, Fleet& fleet, bool& running) {
+void run_choice(int choice, Fleet& fleet, bool& running)
+{
     switch (choice) {
         case 1: handle_add(fleet); break;
         case 2: handle_remove(fleet); break;
@@ -119,12 +140,15 @@ void run_choice(int choice, Fleet& fleet, bool& running) {
     }
 }
 
-int main() {
+int main()
+{
     Fleet fleet;
     bool running = true;
     while (running) {
+        clear_screen();
         print_menu();
         run_choice(read_int(), fleet, running);
+        if (running) wait_for_enter();
     }
     std::cout << "Goodbye.\n";
     return 0;

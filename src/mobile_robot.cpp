@@ -9,7 +9,7 @@ MobileRobot::MobileRobot(const std::string& id, const std::string& name,
 
 void MobileRobot::work() {
     if (battery_ < 20)
-        throw std::runtime_error(name_ + " cannot work: battery is empty");
+        throw std::runtime_error(name_ + " cannot work: battery is too low");
     battery_ -= 20;
     if (battery_ < 0) battery_ = 0;
     status_ = "working";

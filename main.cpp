@@ -25,12 +25,23 @@ int read_int() {
 }
 
 void handle_add(Fleet& fleet) {
-    std::cout << "Type (1=Mobile 2=Cleaning 3=Cooking): ";
+    std::cout << "Robot type - 1: Mobile, 2: Cleaning, 3: Cooking\n> ";
     int t = read_int();
-    std::cout << "id name battery [speed]: ";
-    std::string id, name; int battery; double speed = 1.0;
-    std::cin >> id >> name >> battery;
-    if (t == 1 || t == 2) std::cin >> speed;
+
+    std::cout << "Robot id: ";
+    std::string id; std::cin >> id;
+
+    std::cout << "Robot name: ";
+    std::string name; std::cin >> name;
+
+    std::cout << "Battery (0-100): ";
+    int battery = read_int();
+
+    double speed = 1.0;
+    if (t == 1 || t == 2) {
+        std::cout << "Speed: ";
+        std::cin >> speed;
+    }
 
     try {
         if (t == 1) fleet.add(std::make_shared<MobileRobot>(id, name, battery, speed));

@@ -4,6 +4,8 @@
 #include <memory>
 #include <string>
 #include <ostream>
+#include <unordered_map>
+#include <queue>
 
 class Fleet {
 public:
@@ -29,4 +31,10 @@ private:
     // Choose the right containers and justify each choice in a comment.
     // Hint: robots need fast lookup by id.
     // Hint: tasks must always come out highest priority first.
+
+    // unordered_map: O(1) average lookup by id (matches "fast lookup by id" hint)
+    std::unordered_map<std::string, std::shared_ptr<Robot>> robots_;
+
+    // priority_queue: binary heap, top() always gives highest-priority task first
+    std::priority_queue<Task> tasks_;
 };
